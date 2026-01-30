@@ -27,17 +27,13 @@
                 return "scissors";
             }
         }
-        const compPick = getComputerChoice()
-        console.log(compPick);
 
         /* create function to prompt user for game input */
         function getHumanChoice() {
             const humanChoice = prompt("Rock, Paper, or Scissors?");
-            const lowerHuman = humanChoice.toLowerCase()
+            const lowerHuman = humanChoice.trim().toLowerCase()
             return lowerHuman;
         }
-        const humanPick = getHumanChoice();
-        console.log(humanPick);
 
         /* create score variables */
         let humanScore = 0;
@@ -50,23 +46,48 @@
             const compChoice = compPick;
             const victoryMessage = `You WIN!!! ${userChoice} beats ${compChoice}, you must be a genius`;
             let lossMessage = `You LOSE!!! ${compChoice} beats ${userChoice}, DUMMY`;
+            let wrongInput = "You can't read can you? Try again."
+            let tieMessage = "A tie! Try again!!"
+
             if (userChoice === compChoice) {
-                alert("A tie! Try again!!");
+                alert(tieMessage);
             } else if (userChoice === "rock" && (compChoice === "paper")) {
                 alert(lossMessage);
+                ++computerScore;
             } else if (userChoice === "rock" && (compChoice === "scissors")) {
                 alert(victoryMessage);
+                ++humanScore;
             } else if (userChoice === "paper" && (compChoice === "rock")) {
                 alert(victoryMessage);
+                ++humanScore;
             } else if (userChoice === "paper" && (compChoice === "scissors")) {
                 alert(lossMessage);
+                ++computerScore;
             } else if (userChoice === "scissors" && (compChoice === "rock")) {
                 alert(lossMessage);
+                ++computerScore;
             } else if (userChoice === "scissors" && (compChoice === "paper")) {
                 alert(victoryMessage);
-            }
+                ++humanScore;
+            } else {alert(wrongInput)};
+
+            alert(`The score is you: (${humanScore}) computer: (${computerScore})`);
         }
-        playRound(humanPick, compPick);
+
+        function playGame() {
+            for (let round =1; round <=5; round++) {
+                alert(`Round ${round} of 5`);
+
+                const humanPick = getHumanChoice();
+                const compPick = getComputerChoice();
+
+                playRound(humanPick, compPick);
+            }
+            alert(`FINAL SCORE: You: ${humanScore} Computer: ${computerScore}`);
+            }
+
+            playGame()
+
 
     </script>
 </body>
