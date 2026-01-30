@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ja Jan Ken!</title>
+</head>
+<body>
+    
+
+    <script>
+        /* generate a random number between 0-1
+        multiply by 100, round down, add 1 */
+        function getComputerChoice() {
+            let num = (
+            Math.floor(Math.random() * 100) + 1);
+
+         /* set value for rock being between 1 and 33
+        set value for paper being between 34 and 66
+        set value for scissorys being between 67 and 100 */
+
+            if (num >= 1 && num <= 33) {
+                return "rock";
+            } else if (num >= 34 && num <= 66) {
+                return "paper";
+            } else if (num >= 67 && num <= 100) {
+                return "scissors";
+            }
+        }
+        const compPick = getComputerChoice()
+        console.log(compPick);
+
+        /* create function to prompt user for game input */
+        function getHumanChoice() {
+            const humanChoice = prompt("Rock, Paper, or Scissors?");
+            const lowerHuman = humanChoice.toLowerCase()
+            return lowerHuman;
+        }
+        const humanPick = getHumanChoice();
+        console.log(humanPick);
+
+        /* create score variables */
+        let humanScore = 0;
+        let computerScore = 0;
+
+        /* create function to play a round */
+
+        function playRound (humanPick, compPick) {
+            let userChoice = humanPick;
+            const compChoice = compPick;
+            const victoryMessage = `You WIN!!! ${userChoice} beats ${compChoice}, you must be a genius`;
+            let lossMessage = `You LOSE!!! ${compChoice} beats ${userChoice}, DUMMY`;
+            if (userChoice === compChoice) {
+                alert("A tie! Try again!!");
+            } else if (userChoice === "rock" && (compChoice === "paper")) {
+                alert(lossMessage);
+            } else if (userChoice === "rock" && (compChoice === "scissors")) {
+                alert(victoryMessage);
+            } else if (userChoice === "paper" && (compChoice === "rock")) {
+                alert(victoryMessage);
+            } else if (userChoice === "paper" && (compChoice === "scissors")) {
+                alert(lossMessage);
+            } else if (userChoice === "scissors" && (compChoice === "rock")) {
+                alert(lossMessage);
+            } else if (userChoice === "scissors" && (compChoice === "paper")) {
+                alert(victoryMessage);
+            }
+        }
+        playRound(humanPick, compPick);
+
+    </script>
+</body>
+</html>
