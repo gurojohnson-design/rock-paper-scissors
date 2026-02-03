@@ -7,3 +7,7 @@ No GUI yet (which means no interactive interface on the webpage) this will all b
 Sombody's gotta do it. 
 
 Why not me?
+
+New goal!!
+
+We're creating a UI for the player. Going to need buttons instead of a bunch of alerts coming through.

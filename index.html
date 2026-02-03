@@ -6,14 +6,22 @@
     <title>Ja Jan Ken!</title>
 </head>
 <body>
-    
+    <div id="buttons">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
+
+    <div id = "results"></div>
+
+
+
 
     <script>
         /* generate a random number between 0-1
         multiply by 100, round down, add 1 */
         function getComputerChoice() {
-            let num = (
-            Math.floor(Math.random() * 100) + 1);
+            let num = (Math.floor(Math.random() * 100) + 1);
 
          /* set value for rock being between 1 and 33
         set value for paper being between 34 and 66
@@ -29,6 +37,7 @@
         }
 
         /* create function to prompt user for game input */
+        // With the buttons installed this function is useless
         function getHumanChoice() {
             const humanChoice = prompt("Rock, Paper, or Scissors?");
             const lowerHuman = humanChoice.trim().toLowerCase()
@@ -36,12 +45,15 @@
         }
 
         /* create score variables */
-        let humanScore = 0;
-        let computerScore = 0;
+            let humanScore = 0;
+            let computerScore = 0;
+
 
         /* create function to play a round */
+        // Last commit this got condensed and cleaned up
 
         function playRound (humanPick, compPick) {
+
             let userChoice = humanPick;
             const compChoice = compPick;
             const victoryMessage = `You WIN!!! ${userChoice} beats ${compChoice}, you must be a genius`;
@@ -50,43 +62,66 @@
             let tieMessage = "A tie! Try again!!"
 
             if (userChoice === compChoice) {
-                alert(tieMessage);
-            } else if (userChoice === "rock" && (compChoice === "paper")) {
-                alert(lossMessage);
+                dispResult(tieMessage);
+            } else if ((userChoice === "rock" && compChoice === "paper") || (userChoice == "paper" && compChoice === "scissors") || (userChoice === "scissors" && compChoice === "rock")) {
+                dispResult(lossMessage);
                 ++computerScore;
-            } else if (userChoice === "rock" && (compChoice === "scissors")) {
-                alert(victoryMessage);
+            } else if ((userChoice === "rock" && compChoice === "scissors") || (userChoice === "paper" && compChoice === "rock") || (userChoice === "scissors" && compChoice === "paper")) {
+                dispResult(victoryMessage);
                 ++humanScore;
-            } else if (userChoice === "paper" && (compChoice === "rock")) {
-                alert(victoryMessage);
-                ++humanScore;
-            } else if (userChoice === "paper" && (compChoice === "scissors")) {
-                alert(lossMessage);
-                ++computerScore;
-            } else if (userChoice === "scissors" && (compChoice === "rock")) {
-                alert(lossMessage);
-                ++computerScore;
-            } else if (userChoice === "scissors" && (compChoice === "paper")) {
-                alert(victoryMessage);
-                ++humanScore;
-            } else {alert(wrongInput)};
+            } else {dispResult(wrongInput)};
 
-            alert(`The score is you: (${humanScore}) computer: (${computerScore})`);
+            let scoreMessage = `The score is you: (${humanScore}) computer: (${computerScore})`;
+            scoreBox.textContent = scoreMessage;
+
+            if (humanScore == 5) {
+                alert('Congratulations! YOU WIN THE GAME!');
+                result.textContent = '';
+                scoreBox.textContent = '';
+            } else if (computerScore == 5) {
+                alert('OUCH you lose. Better luck next time!');
+                result.textContent = '';
+                scoreBox.textContent = '';
+            }
         }
 
-        function playGame() {
-            for (let round =1; round <=5; round++) {
-                alert(`Round ${round} of 5`);
-
-                const humanPick = getHumanChoice();
+            // playGame() used to loop for five rounds. now it operates on button click        
+            function playGame() {
+                const humanPick = event.target.id;
                 const compPick = getComputerChoice();
 
                 playRound(humanPick, compPick);
             }
-            alert(`FINAL SCORE: You: ${humanScore} Computer: ${computerScore}`);
-            }
+            
 
-            playGame()
+            
+
+
+
+
+            //add event listener for each button. when button is clicked it inputs selection into playRound()
+        const btnContainer = document.getElementById('buttons');
+        const rockBtn = document.getElementById('rock');
+        const paperBtn = document.getElementById('paper');
+        const scissorsBtn = document.getElementById('scissors');
+
+        rockBtn.addEventListener('click', playGame);
+
+        paperBtn.addEventListener('click', playGame);
+
+        scissorsBtn.addEventListener('click', playGame);
+
+        const result = document.getElementById('results');
+
+        function dispResult(message) {
+            result.textContent = '';
+            result.textContent = message;
+        }
+        const body = document.querySelector('body');
+        const scoreBox = document.createElement('div');
+        scoreBox.classList.add('scoreBox');
+        body.appendChild(scoreBox);
+
 
 
     </script>
